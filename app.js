@@ -1,6 +1,9 @@
 const CALC_DISPLAY = document.querySelector('.calc-display');
 const NUMBERS_BUTTONS = document.querySelectorAll('.number-btn');
 const OPERATORS_BUTTONS = document.querySelectorAll('.operator-btn');
+const EQUAL_BUTTON = document.querySelector('.result-btn');
+const CLEAR_BUTTON = document.querySelector('.clear-btn');
+const CLEAR_ALL_BUTTON = document.querySelector('.clear-all-btn');
 
 let tempResult = 0;
 let finalResult = 0;
@@ -10,7 +13,7 @@ let a;
 let b;
 
 
-// Fonction d'opération
+// Fonctions d'opération
 const operate = function(op, a, b) {
   switch (op) {
     case '+':
@@ -32,13 +35,12 @@ const operate = function(op, a, b) {
   }
 }
 
-// Fonctions de calcul
 const add = function(a, b) {
   tempResult = a + b;
 }
 
 const subtract = function(a, b) {
-  result = a - b;
+  tempResult = a - b;
 }
 
 const multiply = function(a, b) {
@@ -49,22 +51,32 @@ const divide = function(a, b) {
   tempResult = a / b;
 }
 
-// Fonctions d'input et de sélectiond'affichage des entrées et du résultat
+// Fonctions d'input et de sélection d'affichage des entrées et du résultat
+const getResult = function() {
+  a = +userInput.split(/[+-/*]/)[0];
+  b = +userInput.split(/[+-/*]/)[1];
+  operate(op, a, b);
+  userInput = tempResult.toString();
+  op = undefined;
+  updateDisplay();
+}
+
 const getNumberInputs = function() {
   userInput += (this.textContent);
   updateDisplay();
 }
 
 const getOperator = function() {
-  if (!a) {
-    a = parseInt(userInput);
+  if (!op) {
     op = this.textContent;
-    userInput += (this.textContent);
+    userInput += ` ${(this.textContent)} `;
     updateDisplay();
   } else {
-    CALC_DISPLAY.textContent = ' ';
-    b = parseInt(userInput);
-  } 
+    getResult();
+    op = this.textContent;
+    userInput += ` ${(this.textContent)} `;
+    updateDisplay();
+  }
 }
 
 const updateDisplay = function() {
@@ -79,13 +91,14 @@ for (let i = 0; i < OPERATORS_BUTTONS.length; i++) {
   OPERATORS_BUTTONS[i].addEventListener('click', getOperator)
 }
 
+EQUAL_BUTTON.addEventListener('click', getResult);
+CLEAR_BUTTON.addEventListener('click', function() {
+  userInput = userInput.slice(0, -1);
+  updateDisplay();
+})
 
-
-//Fonctions de calcul
-
-/*
-Si l'input est un chiffre, et que input1 = undefined, enregistrer l'input dans input1. Autrement, enregistrer l'input comme input2.
-Si l'input est un operateur, enregistrer dans op.
-A chaque fois qu'on appuye sur un bouton operateur ou sur 'égal', exécuter operate().
-*/
-
+CLEAR_ALL_BUTTON.addEventListener('click', function() {
+  userInput = '';
+  op = undefined;
+  updateDisplay();
+})
