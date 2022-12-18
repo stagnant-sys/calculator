@@ -29,6 +29,8 @@ body {
   background-color: rgb(133, 150, 108);
   border: 1px solid rgba(91, 103, 74, 0.803);
   text-align: right;
+  width: 381px;
+  overflow-x: auto;
 }
 
 .calc-buttons {

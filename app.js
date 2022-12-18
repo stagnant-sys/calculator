@@ -5,6 +5,7 @@ let result = 0;
 let finalResult = 0;
 let userInput = '';
 
+
 // Fonction d'opération
 const operate = function(op, a, b) {
   switch (op) {
@@ -44,21 +45,25 @@ const divide = function(a, b) {
   return result = a / b;
 }
 
-// Fonctions d'affichage des entrées et du résultat
-const updateDisplay = function() {
-  CALC_DISPLAY.textContent = userInput;
-}
-
+// Fonctions d'input et de sélectiond'affichage des entrées et du résultat
 for (let i = 0; i < BUTTONS.length; i++) {
   BUTTONS[i].addEventListener('click', function() {
-    userInput += this.textContent;
+    userInput += (this.textContent);
     updateDisplay();
+    console.log(parseInt(userInput));
     }
   )
 }
 
+const updateDisplay = function() {
+  CALC_DISPLAY.textContent = userInput;
+}
+
+//Fonctions de calcul
+
 /*
 Si l'input est un chiffre, et que input1 = undefined, enregistrer l'input dans input1. Autrement, enregistrer l'input comme input2.
-Si l'input est un operateur, enregistrer dans op. a chaque fois qu'on appuye sur un bouton operateur ou sur 'égal', 
-exécuter operate().
+Si l'input est un operateur, enregistrer dans op.
+A chaque fois qu'on appuye sur un bouton operateur ou sur 'égal', exécuter operate().
 */
+
